@@ -6,6 +6,7 @@
   "packageRules": [
     {
       "description": "Security patches - immediate schedule but still require review",
+      "matchPackagePatterns": ["*"],
       "isVulnerabilityAlert": true,
       "schedule": ["at any time"],
       "addLabels": ["security"],
