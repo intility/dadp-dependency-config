@@ -1,0 +1,43 @@
+name: Validate Renovate Configuration
+
+on:
+  pull_request:
+    paths:
+      - '**.json'
+      - '.github/workflows/validate.yaml'
+  push:
+    branches:
+      - main
+    paths:
+      - '**.json'
+      - '.github/workflows/validate.yaml'
+
+jobs:
+  validate:
+    name: Validate JSON Configuration Files
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Renovate
+        run: npm install -g renovate
+
+      - name: Validate default.json
+        run: renovate-config-validator default.json
+
+      - name: Validate preset configurations
+        run: |
+          for file in presets/*.json; do
+            echo "Validating $file..."
+            renovate-config-validator "$file"
+          done
+
+      - name: Validation successful
+        run: echo "✅ All Renovate configuration files are valid!"

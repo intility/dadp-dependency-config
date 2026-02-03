@@ -1,0 +1,102 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Kubernetes, ArgoCD, and Kustomize support",
+  "kubernetes": {
+    "fileMatch": ["\\.yaml$", "\\.yml$"]
+  },
+  "helm-values": {
+    "fileMatch": ["values\\.yaml$", "values-.*\\.yaml$"]
+  },
+  "kustomize": {
+    "fileMatch": ["kustomization\\.yaml$"]
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "ArgoCD Application Helm charts",
+      "fileMatch": ["\\.yaml$"],
+      "matchStrings": [
+        "repoURL:\\s*['\"]?(?<registryUrl>https?://[^\\s'\"]+)['\"]?\\s*\\n\\s*chart:\\s*['\"]?(?<depName>[^\\s'\"]+)['\"]?\\s*\\n\\s*targetRevision:\\s*['\"]?(?<currentValue>[^\\s'\"]+)['\"]?",
+        "chart:\\s*['\"]?(?<depName>[^\\s'\"]+)['\"]?\\s*\\n\\s*repoURL:\\s*['\"]?(?<registryUrl>https?://[^\\s'\"]+)['\"]?\\s*\\n\\s*targetRevision:\\s*['\"]?(?<currentValue>[^\\s'\"]+)['\"]?"
+      ],
+      "datasourceTemplate": "helm"
+    },
+    {
+      "customType": "regex",
+      "description": "CloudNativePG OLM subscription",
+      "fileMatch": ["subscription\\.yaml$"],
+      "matchStrings": ["startingCSV:\\s*cloudnative-pg\\.v(?<currentValue>[^\\s]+)"],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "cloudnative-pg/cloudnative-pg",
+      "extractVersionTemplate": "^v(?<version>.*)$"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Pin Docker digests",
+      "matchDatasources": ["docker"],
+      "pinDigests": true
+    },
+    {
+      "description": "cert-manager",
+      "matchPackagePatterns": ["cert-manager", "^quay\\.io/jetstack/"],
+      "groupName": "cert-manager",
+      "addLabels": ["security"]
+    },
+    {
+      "description": "external-secrets",
+      "matchPackagePatterns": ["external-secrets"],
+      "groupName": "external-secrets",
+      "addLabels": ["security"]
+    },
+    {
+      "description": "ArgoCD",
+      "matchPackagePatterns": ["argo-cd", "argoproj", "^quay\\.io/argoproj/"],
+      "groupName": "ArgoCD",
+      "addLabels": ["argocd"]
+    },
+    {
+      "description": "CloudNativePG",
+      "matchPackagePatterns": ["cloudnative-pg", "^ghcr\\.io/cloudnative-pg/"],
+      "groupName": "CloudNativePG",
+      "addLabels": ["database"]
+    },
+    {
+      "description": "Barman Cloud",
+      "matchPackagePatterns": ["plugin-barman-cloud", "barman-cloud"],
+      "groupName": "Barman Cloud",
+      "addLabels": ["database", "backup"]
+    },
+    {
+      "description": "GitLab - separate PRs per minor version for controlled upgrades",
+      "matchPackagePatterns": ["^registry\\.gitlab\\.com/", "gitlab/"],
+      "groupName": "GitLab",
+      "separateMultipleMinor": true,
+      "addLabels": ["gitlab"]
+    },
+    {
+      "description": "Logfire",
+      "matchPackagePatterns": ["logfire", "^us-docker\\.pkg\\.dev/pydantic-public-registries/"],
+      "groupName": "Logfire",
+      "addLabels": ["observability"]
+    },
+    {
+      "description": "Prometheus",
+      "matchPackagePatterns": ["kube-prometheus-stack"],
+      "groupName": "Prometheus",
+      "addLabels": ["observability"]
+    },
+    {
+      "description": "Envoy Gateway",
+      "matchPackagePatterns": ["gateway-helm"],
+      "groupName": "Envoy Gateway",
+      "addLabels": ["infrastructure"]
+    },
+    {
+      "description": "KEDA",
+      "matchPackagePatterns": ["keda", "^ghcr\\.io/kedacore/"],
+      "groupName": "KEDA",
+      "addLabels": ["autoscaling"]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Core Renovate settings",
+  "extends": ["config:recommended"],
+  "timezone": "Europe/Oslo",
+  "schedule": ["after 7am and before 10am every weekday"],
+  "branchPrefix": "deps/",
+  "commitMessagePrefix": "chore(deps):",
+  "dependencyDashboard": true,
+  "prHourlyLimit": 5,
+  "prConcurrentLimit": 10,
+  "separateMajorMinor": true,
+  "labels": ["dependencies"],
+  "addLabels": ["renovate"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["major"],
+      "addLabels": ["breaking-change"]
+    }
+  ]
+}
