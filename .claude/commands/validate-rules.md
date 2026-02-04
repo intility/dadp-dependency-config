@@ -15,21 +15,19 @@ Check that `rules.md` and JSON config files are in sync and valid.
 
 ### 2. Read JSON Config
 Read current state of:
-- `presets/schedules.json`
-- `presets/kubernetes.json`
+- `presets/kubernetes.json` - all dependency rules
 
 ### 3. Compare Rules to Code
 
-For each dependency in rules.md, verify:
-- [ ] Schedule rule exists in `schedules.json`
-- [ ] Dependency rule exists in `kubernetes.json`
-- [ ] Patterns match
-- [ ] Grouping settings match
+For each dependency in rules.md, verify in `kubernetes.json`:
+- [ ] PackageRule exists with matching matchPackagePatterns
+- [ ] Schedule matches
+- [ ] Grouping settings match (separateMultipleMinor, etc.)
 - [ ] Labels match
 - [ ] Enabled status matches
 
-For each rule in JSON, verify:
-- [ ] Corresponding entry exists in rules.md
+For each dependency packageRule in JSON, verify:
+- [ ] Corresponding entry exists in rules.md (except generic rules like "Pin Docker digests")
 
 ### 4. JSON Schema Validation
 
@@ -56,20 +54,19 @@ rules.md Validation
 ===================
 
 Dependencies: 10 defined
-Parsing: ✓ OK
+Parsing: OK
 
 Sync Status
 ===========
-✓ ArgoCD - in sync
-✓ CloudNativePG - in sync
-⚠ GitLab - rules.md has per-minor, JSON missing separateMultipleMinor
-✓ cert-manager - in sync
+ArgoCD - in sync
+CloudNativePG - in sync
+GitLab - rules.md has per-minor, JSON missing separateMultipleMinor
+cert-manager - in sync
 ...
 
 JSON Validation
 ===============
-✓ schedules.json - valid
-✓ kubernetes.json - valid
+kubernetes.json - valid
 
 Recommendations
 ===============

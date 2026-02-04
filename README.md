@@ -88,8 +88,8 @@ Use individual presets:
 ```json
 {
   "extends": [
-    "github>intility/dadp-dependency-config:presets/base",
-    "github>intility/dadp-dependency-config:presets/kubernetes"
+    "github>intility/dadp-dependency-config//presets/base",
+    "github>intility/dadp-dependency-config//presets/kubernetes"
   ]
 }
 ```
@@ -100,10 +100,8 @@ Use individual presets:
 ├── rules.md              # Source of truth (human-readable)
 ├── default.json          # Main entry point
 ├── presets/
-│   ├── base.json         # Core settings
-│   ├── schedules.json    # Dependency update schedules
-│   ├── kubernetes.json   # K8s/ArgoCD detection + dependency rules
-│   ├── grouping.json     # PR grouping rules
+│   ├── base.json         # Core settings (timezone, PR limits, default labels)
+│   ├── kubernetes.json   # K8s/ArgoCD detection + all dependency rules (schedules, labels, grouping)
 │   └── automerge.json    # Automerge settings
 └── .claude/
     └── commands/         # Claude Code commands
@@ -145,24 +143,17 @@ Edit rules.md → /validate-rules → /sync-rules → JSON config
 ## Presets Reference
 
 ### base.json
-Core settings: timezone, schedule, branch prefix, commit format, PR limits, labels.
-
-### schedules.json
-Per-dependency update schedules. Maps dependencies to specific days/times.
+Core settings: timezone, default schedule window, branch prefix, commit format, PR limits, default labels, and generic grouping rules (dev dependencies, Docker digests).
 
 ### kubernetes.json
 - Kubernetes manifest detection (`.yaml`, `.yml`)
 - Helm values detection (`values.yaml`, `values-*.yaml`)
 - ArgoCD Application/ApplicationSet support
 - Custom regex managers for `targetRevision`
-- Dependency grouping and labels
-
-### grouping.json
-- Groups dev dependencies (minor/patch)
-- Groups Docker digest updates
+- **All dependency rules** - each package has schedule, labels, and grouping in one place
 
 ### automerge.json
-Automerge configuration (currently disabled).
+Automerge configuration (currently disabled). Security vulnerability alerts bypass schedules.
 
 ## Links
 

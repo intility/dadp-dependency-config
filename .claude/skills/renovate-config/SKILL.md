@@ -32,9 +32,8 @@ rules.md (human-readable) → /sync-rules → JSON config (machine-readable)
 
 | File | Purpose | Edit directly? |
 |------|---------|----------------|
-| `rules.md` | Source of truth | ✓ Yes |
-| `presets/schedules.json` | Dependency schedules | No, use /sync-rules |
-| `presets/kubernetes.json` | K8s/ArgoCD rules | No, use /sync-rules |
+| `rules.md` | Source of truth | Yes |
+| `presets/kubernetes.json` | K8s/ArgoCD rules + schedules + labels | No, use /sync-rules |
 | `presets/base.json` | Core settings | Manual only |
 | `presets/automerge.json` | Automerge config | Manual only |
 

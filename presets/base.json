@@ -16,6 +16,17 @@
     {
       "matchUpdateTypes": ["major"],
       "addLabels": ["breaking-change"]
+    },
+    {
+      "description": "Group dev dependencies",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "dev dependencies"
+    },
+    {
+      "description": "Group Docker digest updates",
+      "matchUpdateTypes": ["digest"],
+      "groupName": "Docker digests"
     }
   ]
 }

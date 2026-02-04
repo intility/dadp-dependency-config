@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Kubernetes, ArgoCD, and Kustomize support",
+  "description": "Kubernetes, ArgoCD, and Kustomize support with dependency schedules",
   "kubernetes": {
     "fileMatch": ["\\.yaml$", "\\.yml$"]
   },
@@ -38,64 +38,75 @@
       "pinDigests": true
     },
     {
-      "description": "cert-manager",
+      "description": "cert-manager - biweekly Monday",
       "matchPackagePatterns": ["cert-manager", "^quay\\.io/jetstack/"],
       "groupName": "cert-manager",
+      "schedule": ["every 2 weeks on monday"],
       "addLabels": ["security"]
     },
     {
-      "description": "external-secrets",
+      "description": "external-secrets - biweekly Monday",
       "matchPackagePatterns": ["external-secrets"],
       "groupName": "external-secrets",
+      "schedule": ["every 2 weeks on monday"],
       "addLabels": ["security"]
     },
     {
-      "description": "ArgoCD",
+      "description": "ArgoCD - biweekly Tuesday",
       "matchPackagePatterns": ["argo-cd", "argoproj", "^quay\\.io/argoproj/"],
       "groupName": "ArgoCD",
+      "schedule": ["every 2 weeks on tuesday"],
       "addLabels": ["argocd"]
     },
     {
-      "description": "CloudNativePG",
+      "description": "CloudNativePG - biweekly Wednesday",
       "matchPackagePatterns": ["cloudnative-pg", "^ghcr\\.io/cloudnative-pg/"],
       "groupName": "CloudNativePG",
+      "schedule": ["every 2 weeks on wednesday"],
       "addLabels": ["database"]
     },
     {
-      "description": "Barman Cloud",
+      "description": "Barman Cloud - biweekly Wednesday",
       "matchPackagePatterns": ["plugin-barman-cloud", "barman-cloud"],
       "groupName": "Barman Cloud",
+      "schedule": ["every 2 weeks on wednesday"],
       "addLabels": ["database", "backup"]
     },
     {
-      "description": "GitLab - separate PRs per minor version for controlled upgrades",
+      "description": "GitLab - 1st of month, separate PRs per minor version",
       "matchPackagePatterns": ["^registry\\.gitlab\\.com/", "gitlab/"],
       "groupName": "GitLab",
+      "schedule": ["on the 1st day of the month"],
       "separateMultipleMinor": true,
       "addLabels": ["gitlab"]
     },
     {
-      "description": "Logfire",
+      "description": "Logfire - 1st of month",
       "matchPackagePatterns": ["logfire", "^us-docker\\.pkg\\.dev/pydantic-public-registries/"],
       "groupName": "Logfire",
+      "schedule": ["on the 1st day of the month"],
       "addLabels": ["observability"]
     },
     {
-      "description": "Prometheus",
+      "description": "Prometheus - 15th of month",
       "matchPackagePatterns": ["kube-prometheus-stack"],
       "groupName": "Prometheus",
+      "schedule": ["on the 15th day of the month"],
       "addLabels": ["observability"]
     },
     {
-      "description": "Envoy Gateway",
+      "description": "Envoy Gateway - 15th of month",
       "matchPackagePatterns": ["gateway-helm"],
       "groupName": "Envoy Gateway",
+      "schedule": ["on the 15th day of the month"],
       "addLabels": ["infrastructure"]
     },
     {
-      "description": "KEDA",
+      "description": "KEDA - 15th of month (disabled)",
       "matchPackagePatterns": ["keda", "^ghcr\\.io/kedacore/"],
       "groupName": "KEDA",
+      "schedule": ["on the 15th day of the month"],
+      "enabled": false,
       "addLabels": ["autoscaling"]
     }
   ]

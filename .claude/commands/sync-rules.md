@@ -20,9 +20,8 @@ Read and parse the Dependencies table from `rules.md`. Extract for each dependen
 
 ### 2. Detect Changes
 
-Compare parsed rules against current JSON files:
-- `presets/schedules.json` - schedule rules
-- `presets/kubernetes.json` - grouping, labels, dependency rules
+Compare parsed rules against current JSON file:
+- `presets/kubernetes.json` - all dependency rules (schedules, grouping, labels)
 
 List what will be added, modified, or removed.
 
@@ -44,7 +43,7 @@ Present warnings to user and require confirmation for high-risk changes.
 
 ### 4. Generate JSON
 
-Generate the updated JSON files:
+Update `presets/kubernetes.json` with the dependency packageRules.
 
 **Schedule mapping:**
 | rules.md | Renovate schedule |
@@ -68,6 +67,14 @@ Generate the updated JSON files:
 - `foo` → `foo` (simple match)
 - Escape dots in registry URLs: `ghcr.io` → `ghcr\\.io`
 
+**Each packageRule should include:**
+- description
+- matchPackagePatterns
+- groupName
+- schedule
+- addLabels
+- Optional: separateMultipleMinor, enabled (if false)
+
 ### 5. Validate JSON
 
 After generating, validate:
@@ -79,22 +86,21 @@ After generating, validate:
 ### 6. Verify Code Matches Rules
 
 Use a subagent to independently:
-1. Read the generated JSON files
+1. Read the generated JSON file
 2. Read rules.md
 3. Verify every rule in rules.md has corresponding JSON config
-4. Verify no JSON config exists without a rule in rules.md
+4. Verify no JSON config exists without a rule in rules.md (except for generic rules like "Pin Docker digests")
 5. Report any discrepancies
 
 ### 7. Summary
 
 Output a summary:
 ```
-✓ Parsed 10 dependencies from rules.md
-✓ Safety checks passed (or list warnings)
-✓ Generated presets/schedules.json
-✓ Generated presets/kubernetes.json
-✓ JSON validation passed
-✓ Code matches rules
+Parsed 10 dependencies from rules.md
+Safety checks passed (or list warnings)
+Generated presets/kubernetes.json
+JSON validation passed
+Code matches rules
 
 Changes:
 - Added: Envoy Gateway
