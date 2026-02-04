@@ -2,11 +2,5 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "description": "Automerge disabled for all updates",
   "automerge": false,
-  "platformAutomerge": false,
-  "vulnerabilityAlerts": {
-    "description": "Security patches - immediate schedule but still require review",
-    "schedule": ["at any time"],
-    "addLabels": ["security"],
-    "prPriority": 10
-  }
+  "platformAutomerge": false
 }
