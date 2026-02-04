@@ -1,0 +1,10 @@
+{
+  "name": "dadp-dependency-config",
+  "version": "1.0.0",
+  "description": "DADP Renovate shared configuration presets",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/intility/dadp-dependency-config.git"
+  }
+}
