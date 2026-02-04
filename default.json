@@ -2,10 +2,10 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "description": "DADP default Renovate configuration - composes all preset configurations",
   "extends": [
-    "github>intility/dadp-dependency-config:presets/base",
-    "github>intility/dadp-dependency-config:presets/schedules",
-    "github>intility/dadp-dependency-config:presets/automerge",
-    "github>intility/dadp-dependency-config:presets/grouping",
-    "github>intility/dadp-dependency-config:presets/kubernetes"
+    "github>intility/dadp-dependency-config//presets/base",
+    "github>intility/dadp-dependency-config//presets/schedules",
+    "github>intility/dadp-dependency-config//presets/automerge",
+    "github>intility/dadp-dependency-config//presets/grouping",
+    "github>intility/dadp-dependency-config//presets/kubernetes"
   ]
 }
